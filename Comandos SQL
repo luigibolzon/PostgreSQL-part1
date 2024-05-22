@@ -1,0 +1,89 @@
+Criar a tabela alunos:
+CREATE TABLE aluno (
+	id SERIAL,
+	nome VARCHAR(255),
+	cpf CHAR(11),
+	comentario TEXT ,
+	idade INTEGER ,
+	dinheiro NUMERIC(10,2),
+	altura real,
+	matriculado BOOLEAN,
+	nascimento DATE,
+	hora_entrada TIME,
+	Matriculado_em timestamp,
+	testenull Integer NOT NULL Não me permite dar insert into neste campo o valor null
+	testeunique Integer UNIQUE Faz nenhum outro campo poder ser adicionado enquanto tiver testeunique repetido com um que já existe
+	testeprimarykey PRIMARY KEY é basicamente um NOT NULL e um UNIQUE juntos
+	
+);
+
+Incluindo registros na tabela:
+INSERT INTO aluno (
+    nome,
+    cpf,
+    observacao,
+    idade,
+    dinheiro,
+    altura,
+    ativo,
+    data_nascimento,
+    hora_aula,
+    matriculado_em
+) VALUES (
+    'Diogo',
+    '12345678901',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac dui et nisl vestibulum consequat. Integer vitae magna egestas, finibus libero dapibus, maximus magna. Fusce suscipit mi ut dui vestibulum, non vehicula felis fringilla. Vestibulum eget massa blandit, viverra quam non, convallis libero. Morbi ut nunc ligula. Duis tristique purus augue, nec sodales sem scelerisque dignissim. Sed vel rutrum mi. Nunc accumsan magna quis tempus rhoncus. Duis volutpat nulla a aliquet feugiat. Vestibulum rhoncus mi diam, eu consectetur sapien eleifend in. Donec sed facilisis velit. Duis tempus finibus venenatis. Mauris neque nisl, pulvinar eu volutpat eu, laoreet in massa. Quisque vestibulum eros ac tortor facilisis vulputate. Sed iaculis purus non sem tempus mollis. Curabitur felis lectus, aliquam id nunc ut, congue accumsan tellus.',
+    35,
+    100.50,
+    1.81,
+    TRUE,
+    '1984-08-27',
+    '17:30:00',
+    '2020-02-08 12:32:45'
+);
+
+Dando updates na tabela:
+UPDATE aluno
+    SET nome = 'Nico',
+    cpf = '10987654321',
+    observacao = 'Teste',
+    idade = 38,
+    dinheiro = 15.23,
+    altura = 1.90,
+    ativo = FALSE,
+    data_nascimento = '1980-01-15',
+    hora_aula = '13:00:00',
+    matriculado_em = '2020-01-02 15:00:00'
+WHERE id = 1;    
+
+Como excluir algum registro da tabela:
+DELETE FROM aluno WHERE nome = 'Diogo';
+
+Como selecionar campos específicos:
+SELECT nome,
+       idade,
+       matriculado_em
+    FROM aluno;
+\\ Se colocar o * seleciona todos os campos ta tabela
+
+Fazer filtros com letras:
+select * from aluno
+	where nome = 'Diogo' Traz os campos que tem nome de Diogo
+	where nome <> ou != 'Diogo' Traz os campos que não tem o nome de Diogo
+	where nome LIKE 'Diogo' Procura por algo parecido 
+	where nome like 'Di_go' o _ aceita qualquer caracter nesse lugar
+	where nome not like 'Diogo' Traz todo mundo que não é o que você selecionou
+	where nome like 'D%' Traz qualquer coisa que começa com D, se tiver antes do D é tudo q termina em D '%i%a%' exemplo pra achar qualquer coisa q tem um i e depois algum a  
+
+Filtros com números:
+SELECT * FROM aluno
+	WHERE cpf is ou is not NULL; Retorna tudo que possui aquele campo preenchido ou vazio
+	WHERE idade BETWEEN 10 AND 20; Retorna dados que possuem o campo entre 10 e 20
+
+Operadores lógicos:
+SELECT * FROM aluno
+	WHERE nome LIKE 'Diogo'
+    AND nome LIKE 'Nico%';
+ou
+	WHERE nome LIKE 'Thiago'
+    OR nome LIKE 'Miguel';
